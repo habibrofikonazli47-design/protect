@@ -4,12 +4,12 @@ REMOTE_PATH="/var/www/pterodactyl/app/Http/Controllers/Admin/UserController.php"
 TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S")
 BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
 
-echo "🚀 Memasang proteksi UserController.php anti hapus dan anti ubah data user..."
+echo "🛡️ Memasang proteksi UserController.php anti hapus dan anti ubah data user..."
 
 # Backup file lama jika ada
 if [ -f "$REMOTE_PATH" ]; then
   mv "$REMOTE_PATH" "$BACKUP_PATH"
-  echo "📦 Backup file lama dibuat di $BACKUP_PATH"
+  echo "📥 Backup file lama dibuat di $BACKUP_PATH"
 fi
 
 mkdir -p "$(dirname "$REMOTE_PATH")"
@@ -109,7 +109,7 @@ class UserController extends Controller
         // === FITUR TAMBAHAN: Proteksi hapus user ===
         if ($request->user()->id !== 1) {
             throw new DisplayException("❌ Halah! Mau hapus user orang ya? Gagal bos!
-Hanya Admin ID 1 yang berhak ngelakuin itu 😎
+Hanya Admin ID 1 yang berhak ngelakuin itu 👑
 © PROTECT HABIB — ");
         }
         // ============================================
@@ -150,7 +150,7 @@ Hanya Admin ID 1 yang berhak ngelakuin itu 😎
 
         foreach ($restrictedFields as $field) {
             if ($request->filled($field) && $request->user()->id !== 1) {
-                throw new DisplayException("⚠️ Heh! Mau ubah data ya? Sayang banget, cuma Admin ID 1 yang bisa 😏
+                throw new DisplayException("🫵🏿 Heh! Mau ubah data ya? Sayang banget, cuma Admin ID 1 yang bisa 😏
 © PROTECT HABIB — ");
             }
         }
@@ -197,6 +197,6 @@ Cuma Admin ID 1 yang punya hak buat itu.
 EOF
 
 chmod 644 "$REMOTE_PATH"
-echo "✅ Proteksi UserController.php berhasil dipasang!"
-echo "📂 Lokasi file: $REMOTE_PATH"
-echo "🗂️ Backup file lama: $BACKUP_PATH"
+echo "🛡️ Proteksi UserController.php berhasil dipasang!"
+echo "📦 Lokasi file: $REMOTE_PATH"
+echo "📥 Backup file lama: $BACKUP_PATH"
