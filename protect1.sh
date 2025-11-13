@@ -4,11 +4,11 @@ REMOTE_PATH="/var/www/pterodactyl/app/Services/Servers/ServerDeletionService.php
 TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S")
 BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
 
-echo "🚀 Memasang proteksi Anti Delete Server..."
+echo "⏱️ Memasang proteksi Anti Delete Server..."
 
 if [ -f "$REMOTE_PATH" ]; then
   mv "$REMOTE_PATH" "$BACKUP_PATH"
-  echo "📦 Backup file lama dibuat di $BACKUP_PATH"
+  echo "📥 Backup file lama dibuat di $BACKUP_PATH"
 fi
 
 mkdir -p "$(dirname "$REMOTE_PATH")"
@@ -62,7 +62,7 @@ class ServerDeletionService
     {
         $user = Auth::user();
 
-        // 🔒 Proteksi: hanya Admin ID = 1 boleh menghapus server siapa saja.
+        // 🔐 Proteksi: hanya Admin ID = 1 boleh menghapus server siapa saja.
         // Selain itu, user biasa hanya boleh menghapus server MILIKNYA SENDIRI.
         // Jika tidak ada informasi pemilik dan pengguna bukan admin, tolak.
         if ($user) {
@@ -79,7 +79,7 @@ class ServerDeletionService
                 }
 
                 if ($ownerId !== $user->id) {
-                    throw new DisplayException('😆 Waduh, gagal lagi ya? Makanya jangan coba-coba buka punya orang. — PROTECT HABIB');
+                    throw new DisplayException('🛡️ Waduh, gagal lagi ya? Makanya jangan coba-coba buka punya orang');
                 }
             }
             // jika $user->id === 1, lanjutkan (admin super)
@@ -120,7 +120,7 @@ EOF
 
 chmod 644 "$REMOTE_PATH"
 
-echo "✅ Proteksi Anti Delete Server berhasil dipasang!"
-echo "📂 Lokasi file: $REMOTE_PATH"
-echo "🗂️ Backup file lama: $BACKUP_PATH (jika sebelumnya ada)"
-echo "🔒 Hanya Admin (ID 1) yang bisa hapus server lain."
+echo "📜 Proteksi Anti Delete Server berhasil dipasang!"
+echo "💾 Lokasi file: $REMOTE_PATH"
+echo "🔁 Backup file lama: $BACKUP_PATH (jika sebelumnya ada)"
+echo "🔑 Hanya Admin (ID 1) yang bisa hapus server lain."
